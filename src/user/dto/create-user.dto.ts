@@ -1,11 +1,14 @@
+import { IsString } from 'class-validator';
 export enum UserType {
   CLIENT = 'client',
   ADMIN = 'admin',
 }
 
 export class CreateUserDto {
-  readonly name: string;
-  readonly email: string;
-  readonly password: string;
-  readonly type: UserType;
+  @IsString()
+  name: string;
+  email: string;
+  password: string;
+  type: UserType;
+  createdAt: Date;
 }
