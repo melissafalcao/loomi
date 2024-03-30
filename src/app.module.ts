@@ -4,10 +4,12 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ClientModule } from './client/client.module';
 import { AuthModule } from './auth/auth.module';
+import { ProductModule } from './product/product.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
 import { Client } from './client/client.entity';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { Product } from './product/product.entity';
 
 @Module({
   imports: [
@@ -18,12 +20,13 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
       username: 'postgres',
       password: '',
       database: 'loomi-bd',
-      entities: [User, Client],
+      entities: [User, Client, Product],
       synchronize: true,
     }),
     UserModule,
     ClientModule,
     AuthModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService, JwtAuthGuard],
