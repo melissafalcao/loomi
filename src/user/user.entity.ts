@@ -4,6 +4,7 @@ import {
   Column,
   BeforeInsert,
   Unique,
+  CreateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
@@ -14,7 +15,7 @@ export class User {
   id: number;
 
   @Column()
-  nome: string;
+  name: string;
 
   @Column()
   email: string;
@@ -23,13 +24,19 @@ export class User {
   isActive: boolean;
 
   @Column()
-  senha: string;
+  password: string;
 
   @Column({ default: 'client' })
   type: string;
 
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @Column({ nullable: true })
+  updateAt: Date;
+
   @BeforeInsert()
   async hashPassword() {
-    this.senha = await bcrypt.hash(this.senha, 10);
+    this.password = await bcrypt.hash(this.password, 10);
   }
 }
