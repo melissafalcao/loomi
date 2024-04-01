@@ -10,6 +10,10 @@ import { User } from './user/user.entity';
 import { Client } from './client/client.entity';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { Product } from './product/product.entity';
+import { OrderItemModule } from './orderItem/orderItem.module';
+import { OrderItem } from './orderItem/orderItem.entity';
+import { Order } from './order/order.entity';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -20,13 +24,15 @@ import { Product } from './product/product.entity';
       username: 'postgres',
       password: '',
       database: 'loomi-bd',
-      entities: [User, Client, Product],
+      entities: [User, Client, Product, Order, OrderItem],
       synchronize: true,
     }),
     UserModule,
     ClientModule,
     AuthModule,
     ProductModule,
+    OrderModule,
+    OrderItemModule,
   ],
   controllers: [AppController],
   providers: [AppService, JwtAuthGuard],
