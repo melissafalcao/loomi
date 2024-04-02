@@ -16,6 +16,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('products')
+@UseGuards(JwtAuthGuard)
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
@@ -37,7 +38,6 @@ export class ProductController {
   ): Promise<Product> {
     return await this.productService.getProductById(id);
   }
-  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async updateProduct(
     @Param('id', ParseIntPipe) id: number,
@@ -45,7 +45,6 @@ export class ProductController {
   ): Promise<Product> {
     return await this.productService.updateProduct(id, updateProductDto);
   }
-  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async deleteProduct(@Param('id', ParseIntPipe) id: number): Promise<void> {
     await this.productService.deleteProduct(id);
