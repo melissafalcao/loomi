@@ -33,6 +33,7 @@ import { OrderModule } from './order/order.module';
     ProductModule,
     OrderModule,
     OrderItemModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, JwtAuthGuard],
