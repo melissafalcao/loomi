@@ -14,8 +14,10 @@ import { UpdateClientDto } from './dto/update-client.dto';
 import { Client } from './client.entity';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { JwtAuthGuard } from './../auth/jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('clients')
+@ApiTags('Clientes')
+@Controller('client')
 @UseGuards(JwtAuthGuard)
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}
@@ -32,7 +34,7 @@ export class ClientController {
     return this.clientService.create(createClientDto, createUserDto);
   }
 
-  @Get()
+  @Get('get-all')
   findAll(): Promise<Client[]> {
     return this.clientService.findAll();
   }

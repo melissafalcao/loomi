@@ -14,8 +14,10 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { CreateOrderItemDto } from 'src/orderItem/dto/create-order-item.dto';
 import { Order } from './order.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('orders')
+@ApiTags('Pedidos')
+@Controller('order')
 @UseGuards(JwtAuthGuard)
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
@@ -32,7 +34,7 @@ export class OrderController {
     return this.orderService.createOrder(createOrderDto, createOrderItemDto);
   }
 
-  @Get()
+  @Get('get-all')
   findAll() {
     return this.orderService.getAllOrders();
   }
