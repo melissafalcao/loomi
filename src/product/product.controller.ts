@@ -14,8 +14,10 @@ import { Product } from './product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('products')
+@ApiTags('Produtos')
+@Controller('product')
 @UseGuards(JwtAuthGuard)
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -27,7 +29,7 @@ export class ProductController {
     return await this.productService.createProduct(createProductDto);
   }
 
-  @Get()
+  @Get('get-all')
   async getAllProducts(): Promise<Product[]> {
     return await this.productService.getAllProducts();
   }
