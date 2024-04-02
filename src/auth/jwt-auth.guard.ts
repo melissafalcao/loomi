@@ -28,6 +28,15 @@ export class JwtAuthGuard implements CanActivate {
       if (decoded['userType'] === 'admin') {
         return true;
       }
+
+      if (
+        (request.url.includes('products') && request.method === 'GET') ||
+        (request.url.includes('orders') && request.method === 'POST') ||
+        (request.url.includes('order-item') && request.method === 'POST')
+      ) {
+        return true;
+      }
+
       const requestedUserId = request.params.userId;
       if (decoded['userId'] !== requestedUserId) {
         throw new UnauthorizedException('Acesso Negado');
