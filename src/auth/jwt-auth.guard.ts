@@ -21,8 +21,16 @@ export class JwtAuthGuard implements CanActivate {
     }
     try {
       const decoded = this.jwtService.verify(token);
-      if (!decoded || typeof decoded !== 'object' || !decoded['userId']) {
+      if (!decoded || !decoded['userId']) {
         throw new UnauthorizedException('Token inválido');
+      }
+
+      if (decoded['userType'] === 'admin') {
+        return true;
+      }
+      const requestedUserId = request.params.userId;
+      if (decoded['userId'] !== requestedUserId) {
+        throw new UnauthorizedException('Acesso Negado');
       }
       request.user = {
         userId: decoded['userId'],

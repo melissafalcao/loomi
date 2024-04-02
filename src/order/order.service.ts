@@ -20,8 +20,6 @@ export class OrderService {
     createOrderDto: CreateOrderDto,
     createOrderItemDto: CreateOrderItemDto,
   ): Promise<Order> {
-    console.log(createOrderDto);
-    console.log(createOrderItemDto);
     const order = await this.orderRepository.create({
       clientId: createOrderDto.clientId,
       status: createOrderDto.status,
